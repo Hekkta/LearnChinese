@@ -92,7 +92,8 @@
   {"pinyin": "hào", "english": "day of the month", "hanzi": "号"},
   {"pinyin": "yuè", "english": "month", "hanzi": "月"},
   {"pinyin": "shēngrì", "english": "birthday", "hanzi": "生日"},
-  {"pinyin": "líng", "english": "zero", "hanzi": "零"}
+  {"pinyin": "líng", "english": "zero", "hanzi": "零"},
+  {"pinyin": "cèshì", "english": "test", "hanzi": "测试"}
 ]
 
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:math';
-import 'package:flutter/services.dart' show rootBundle;
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(const ChinesePracticeApp());
@@ -56,19 +58,73 @@ class _PracticePageState extends State<PracticePage> {
     loadWords();
   }
 
-  Future<void> loadWords() async {
-    final jsonString = await rootBundle.loadString('assets/vocab.json');
-    final List<dynamic> data = json.decode(jsonString);
+  /// Get the local file for caching
+  Future<File> getLocalFile() async {
+    final dir = await getApplicationDocumentsDirectory();
+    return File('${dir.path}/vocab.json');
+  }
 
-    setState(() {
-      vocab = data.map((e) => Map<String, String>.from(e)).toList();
-      totalWords = vocab.length;
-      correctCount = 0;
-      attemptedCount = 0;
-      wrongAnswers.clear();
-      isFinished = false;
-      nextQuestion();
-    });
+  /// Save JSON locally
+  Future<void> saveJsonLocally(String jsonString) async {
+    final file = await getLocalFile();
+    await file.writeAsString(jsonString);
+  }
+
+  /// Read JSON from local cache
+  Future<String?> readJsonFromLocal() async {
+    try {
+      final file = await getLocalFile();
+      if (await file.exists()) {
+        return await file.readAsString();
+      }
+    } catch (_) {}
+    return null;
+  }
+
+  /// Load words from GitHub or fallback to local cache
+  Future<void> loadWords() async {
+    final url = Uri.parse(
+        'https://raw.githubusercontent.com/Hekkta/LearnChinese/main/vocab.json'); 
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final jsonString = response.body;
+        await saveJsonLocally(jsonString);
+        final List<dynamic> data = json.decode(jsonString);
+        setState(() {
+          vocab = data.map((e) => Map<String, String>.from(e)).toList();
+          totalWords = vocab.length;
+          correctCount = 0;
+          attemptedCount = 0;
+          wrongAnswers.clear();
+          isFinished = false;
+          nextQuestion();
+        });
+        return;
+      }
+    } catch (e) {
+      print('Could not fetch from GitHub: $e');
+    }
+
+    // fallback to local cache
+    final cached = await readJsonFromLocal();
+    if (cached != null) {
+      final List<dynamic> data = json.decode(cached);
+      setState(() {
+        vocab = data.map((e) => Map<String, String>.from(e)).toList();
+        totalWords = vocab.length;
+        correctCount = 0;
+        attemptedCount = 0;
+        wrongAnswers.clear();
+        isFinished = false;
+        nextQuestion();
+      });
+    } else {
+      setState(() {
+        isFinished = true;
+        feedback = 'Could not load vocabulary. Check internet connection.';
+      });
+    }
   }
 
   void nextQuestion() {
@@ -136,7 +192,7 @@ class _PracticePageState extends State<PracticePage> {
     });
   }
 
-  /// 🔤 Remove tone marks for easier matching
+  /// Remove tone marks for autocomplete
   String normalizePinyin(String input) {
     const Map<String, String> toneMap = {
       'ā': 'a', 'á': 'a', 'ǎ': 'a', 'à': 'a',
@@ -268,14 +324,12 @@ class _PracticePageState extends State<PracticePage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-
-              /// ======= AUTOCOMPLETE =======
               Autocomplete<String>(
                 optionsBuilder: (TextEditingValue value) {
                   if (value.text.isEmpty) return const Iterable<String>.empty();
                   final input = normalizePinyin(value.text);
-                  return suggestions.where((option) =>
-                      normalizePinyin(option).startsWith(input));
+                  return suggestions.where(
+                      (option) => normalizePinyin(option).startsWith(input));
                 },
                 fieldViewBuilder:
                     (context, textEditingController, focusNode, onSubmit) {
@@ -322,9 +376,7 @@ class _PracticePageState extends State<PracticePage> {
                   controller.text = val;
                 },
               ),
-
               const SizedBox(height: 20),
-
               ElevatedButton(
                 onPressed: hasSubmitted
                     ? () {
@@ -335,7 +387,6 @@ class _PracticePageState extends State<PracticePage> {
                 child: Text(hasSubmitted ? 'Next' : 'Submit'),
               ),
               const SizedBox(height: 20),
-
               Text(
                 feedback,
                 style: TextStyle(
