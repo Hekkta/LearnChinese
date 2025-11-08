@@ -93,7 +93,9 @@
   {"pinyin": "yuè", "english": "month", "hanzi": "月"},
   {"pinyin": "shēngrì", "english": "birthday", "hanzi": "生日"},
   {"pinyin": "líng", "english": "zero", "hanzi": "零"},
-  {"pinyin": "cèshì", "english": "test", "hanzi": "测试"}
+  {"pinyin": "fànguǎn", "english": "restaurant", "hanzi": "飯館"},
+  {"pinyin": "chāoshì", "english": "supermarket", "hanzi": "超市"},
+  {"pinyin": "qù", "english": "to go", "hanzi": "去"},
+  {"pinyin": "gōngsī", "english": "company", "hanzi": "公司"},
+  {"pinyin": "xuéxiào", "english": "school", "hanzi": "学校"}
 ]
-
-
