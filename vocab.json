@@ -29,7 +29,7 @@
   {"pinyin": "hànyǔ", "english": "Chinese (language)", "hanzi": "汉语"},
   {"pinyin": "shì", "english": "to be", "hanzi": "是"},
   {"pinyin": "Zhōngguó", "english": "China", "hanzi": "中国"},
-  {"pinyin": "Niúnǎi", "english": "milk", "hanzi": "牛奶"},
+  {"pinyin": "niúnǎi", "english": "milk", "hanzi": "牛奶"},
   {"pinyin": "hē", "english": "drink", "hanzi": "喝"},
   {"pinyin": "hé", "english": "and", "hanzi": "和"},
   {"pinyin": "xiǎng", "english": "want", "hanzi": "想"},
@@ -97,5 +97,9 @@
   {"pinyin": "chāoshì", "english": "supermarket", "hanzi": "超市"},
   {"pinyin": "qù", "english": "to go", "hanzi": "去"},
   {"pinyin": "gōngsī", "english": "company", "hanzi": "公司"},
-  {"pinyin": "xuéxiào", "english": "school", "hanzi": "学校"}
+  {"pinyin": "xuéxiào", "english": "school", "hanzi": "学校"},
+  {"pinyin": "shāngdiàn", "english": "shop", "hanzi": "商店"},
+  {"pinyin": "jīchǎng", "english": "airport", "hanzi": "机场"},
+  {"pinyin": "yīyuàn", "english": "hospital", "hanzi": "医院"},
+  {"pinyin": "nǎlǐ", "english": "where", "hanzi": "哪里"}
 ]
