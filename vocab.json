@@ -101,5 +101,9 @@
   {"pinyin": "shāngdiàn", "english": "shop", "hanzi": "商店"},
   {"pinyin": "jīchǎng", "english": "airport", "hanzi": "机场"},
   {"pinyin": "yīyuàn", "english": "hospital", "hanzi": "医院"},
+  {"pinyin": "qiánbiān", "english": "front", "hanzi": "前边"},
+  {"pinyin": "hòubiān", "english": "back", "hanzi": "后边"},
+  {"pinyin": "gōngyuán", "english": "park", "hanzi": "公园"},
+  {"pinyin": "jiǔdiàn", "english": "hotel", "hanzi": "酒店"},
   {"pinyin": "nǎlǐ", "english": "where", "hanzi": "哪里"}
 ]
