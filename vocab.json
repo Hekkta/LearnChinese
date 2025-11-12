@@ -105,5 +105,11 @@
   {"pinyin": "hòubiān", "english": "back", "hanzi": "后边"},
   {"pinyin": "gōngyuán", "english": "park", "hanzi": "公园"},
   {"pinyin": "jiǔdiàn", "english": "hotel", "hanzi": "酒店"},
-  {"pinyin": "nǎlǐ", "english": "where", "hanzi": "哪里"}
+  {"pinyin": "nǎlǐ", "english": "where", "hanzi": "哪里"},
+  {"pinyin": "yínháng", "english": "bank", "hanzi": "银行"},
+  {"pinyin": "cèsuǒ", "english": "bathroom", "hanzi": "厕所"},
+  {"pinyin": "píng", "english": "bottle", "hanzi": "瓶"},
+  {"pinyin": "shénme", "english": "what", "hanzi": "什么"},
+  {"pinyin": "xìng", "english": "surname", "hanzi": "姓"},
+  {"pinyin": "fùjìn", "english": "nearby", "hanzi": "附近"}
 ]
