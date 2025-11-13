@@ -111,5 +111,8 @@
   {"pinyin": "píng", "english": "bottle", "hanzi": "瓶"},
   {"pinyin": "shénme", "english": "what", "hanzi": "什么"},
   {"pinyin": "xìng", "english": "surname", "hanzi": "姓"},
+  {"pinyin": "shéi", "english": "who", "hanzi": "谁"},
+  {"pinyin": "nǎ", "english": "which", "hanzi": "哪"},
+  {"pinyin": "guó", "english": "country", "hanzi": "国"},
   {"pinyin": "fùjìn", "english": "nearby", "hanzi": "附近"}
 ]
