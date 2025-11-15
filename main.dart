@@ -33,8 +33,9 @@ class PracticePage extends StatefulWidget {
 }
 
 class _PracticePageState extends State<PracticePage> {
-  List<Map<String, String>> vocab = [];
-  Map<String, String>? currentWord;
+  List<Map<String, dynamic>> vocab = [];
+  List<Map<String, dynamic>> sessionList = [];
+  Map<String, dynamic>? currentWord;
   String clueType = '';
   String clue = '';
   String correctAnswer = '';
@@ -47,10 +48,11 @@ class _PracticePageState extends State<PracticePage> {
   FocusNode? _autoFocusNode;
 
   int totalWords = 0;
+  int selectedWords = 0;
   int correctCount = 0;
   int attemptedCount = 0;
 
-  List<Map<String, String>> wrongAnswers = [];
+  List<Map<String, dynamic>> wrongAnswers = [];
 
   @override
   void initState() {
@@ -58,79 +60,91 @@ class _PracticePageState extends State<PracticePage> {
     loadWords();
   }
 
-  /// Get the local file for caching
   Future<File> getLocalFile() async {
     final dir = await getApplicationDocumentsDirectory();
     return File('${dir.path}/vocab.json');
   }
 
-  /// Save JSON locally
   Future<void> saveJsonLocally(String jsonString) async {
     final file = await getLocalFile();
     await file.writeAsString(jsonString);
   }
 
-  /// Read JSON from local cache
   Future<String?> readJsonFromLocal() async {
     try {
       final file = await getLocalFile();
-      if (await file.exists()) {
-        return await file.readAsString();
-      }
+      if (await file.exists()) return await file.readAsString();
     } catch (_) {}
     return null;
   }
 
-  /// Load words from GitHub or fallback to local cache
   Future<void> loadWords() async {
+    List<Map<String, dynamic>> localData = [];
+
+    // Load local JSON
+    final cached = await readJsonFromLocal();
+    if (cached != null) {
+      final List<dynamic> data = json.decode(cached);
+      localData = data.map((e) => Map<String, dynamic>.from(e)).toList();
+    }
+
+    // Fetch from GitHub
     final url = Uri.parse(
-        'https://raw.githubusercontent.com/Hekkta/LearnChinese/main/vocab.json'); 
+        'https://raw.githubusercontent.com/Hekkta/LearnChinese/main/vocab.json');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
-        final jsonString = response.body;
-        await saveJsonLocally(jsonString);
-        final List<dynamic> data = json.decode(jsonString);
-        setState(() {
-          vocab = data.map((e) => Map<String, String>.from(e)).toList();
-          totalWords = vocab.length;
-          correctCount = 0;
-          attemptedCount = 0;
-          wrongAnswers.clear();
-          isFinished = false;
-          nextQuestion();
-        });
-        return;
+        final List<dynamic> remoteData = json.decode(response.body);
+        for (var word in remoteData) {
+          bool exists = localData.any((w) =>
+              w['pinyin'] == word['pinyin'] &&
+              w['english'] == word['english']);
+          if (!exists) {
+            // New word: set streaks to 0
+            localData.add({
+              'pinyin': word['pinyin'],
+              'english': word['english'],
+              'hanzi': word['hanzi'],
+              'correctStreakPinyin': 0,
+              'correctStreakEnglish': 0,
+            });
+          }
+        }
+        await saveJsonLocally(json.encode(localData));
       }
     } catch (e) {
       print('Could not fetch from GitHub: $e');
     }
 
-    // fallback to local cache
-    final cached = await readJsonFromLocal();
-    if (cached != null) {
-      final List<dynamic> data = json.decode(cached);
-      setState(() {
-        vocab = data.map((e) => Map<String, String>.from(e)).toList();
-        totalWords = vocab.length;
-        correctCount = 0;
-        attemptedCount = 0;
-        wrongAnswers.clear();
-        isFinished = false;
-        nextQuestion();
-      });
-    } else {
-      setState(() {
-        isFinished = true;
-        feedback = 'Could not load vocabulary. Check internet connection.';
-      });
-    }
+    setState(() {
+      vocab = localData;
+      totalWords = vocab.length;
+      correctCount = 0;
+      attemptedCount = 0;
+      wrongAnswers.clear();
+      isFinished = false;
+      prepareSessionList();
+      nextQuestion();
+    });
+  }
+
+  void prepareSessionList() {
+    final random = Random();
+    sessionList = vocab.where((w) {
+      // Include mastered words at 10% probability
+      int streakPinyin = w['correctStreakPinyin'] ?? 0;
+      int streakEnglish = w['correctStreakEnglish'] ?? 0;
+      if (streakPinyin >= 10 && streakEnglish >= 10) {
+        return random.nextDouble() < 0.1;
+      }
+      return true;
+    }).toList();
+
+    selectedWords = sessionList.length;
   }
 
   void nextQuestion() {
-    final random = Random();
-
-    if (vocab.isEmpty) {
+    if (sessionList.isEmpty) {
       setState(() {
         isFinished = true;
         clue = '';
@@ -142,23 +156,32 @@ class _PracticePageState extends State<PracticePage> {
       return;
     }
 
-    final word = vocab[random.nextInt(vocab.length)];
+    final random = Random();
+    final index = random.nextInt(sessionList.length);
     final choice = random.nextInt(2);
+    final word = sessionList[index];
+
+    sessionList.removeAt(index);
 
     setState(() {
       currentWord = word;
       feedback = '';
       hasSubmitted = false;
+
+      // Clear both main controller and synced internal controllers
       controller.clear();
+      for (var entry in _internalListeners.entries) {
+        entry.key.clear();
+      }
 
       if (choice == 0) {
         clueType = 'English';
-        clue = word['english']!;
-        correctAnswer = word['pinyin']!;
+        clue = word['english'];
+        correctAnswer = word['pinyin'];
       } else {
         clueType = 'Chinese (Pinyin)';
-        clue = word['pinyin']!;
-        correctAnswer = word['english']!;
+        clue = word['pinyin'];
+        correctAnswer = word['english'];
       }
     });
 
@@ -167,40 +190,64 @@ class _PracticePageState extends State<PracticePage> {
     });
   }
 
-  void removeCurrentWord() {
-    if (currentWord != null) {
-      vocab.remove(currentWord);
-    }
-  }
-
-  void checkAnswer(String input) {
+  void checkAnswer(String input) async {
     final user = input.trim().toLowerCase();
     final answer = correctAnswer.trim().toLowerCase();
+    bool isCorrect = user == answer;
 
     setState(() {
       hasSubmitted = true;
       attemptedCount++;
 
-      if (user == answer) {
+      if (isCorrect) {
         correctCount++;
         feedback = '✅ Correct!';
+
+        if (clueType == 'English') {
+          currentWord!['correctStreakPinyin'] =
+              (currentWord!['correctStreakPinyin'] ?? 0) + 1;
+        } else {
+          currentWord!['correctStreakEnglish'] =
+              (currentWord!['correctStreakEnglish'] ?? 0) + 1;
+        }
       } else {
         feedback =
             '❌ Correct answer: ${currentWord!['english']} (${currentWord!['pinyin']} / ${currentWord!['hanzi']})';
         wrongAnswers.add(currentWord!);
+        currentWord!['correctStreakPinyin'] = 0;
+        currentWord!['correctStreakEnglish'] = 0;
       }
     });
+
+    await saveJsonLocally(json.encode(vocab));
   }
 
-  /// Remove tone marks for autocomplete
   String normalizePinyin(String input) {
     const Map<String, String> toneMap = {
-      'ā': 'a', 'á': 'a', 'ǎ': 'a', 'à': 'a',
-      'ē': 'e', 'é': 'e', 'ě': 'e', 'è': 'e',
-      'ī': 'i', 'í': 'i', 'ǐ': 'i', 'ì': 'i',
-      'ō': 'o', 'ó': 'o', 'ǒ': 'o', 'ò': 'o',
-      'ū': 'u', 'ú': 'u', 'ǔ': 'u', 'ù': 'u',
-      'ǖ': 'ü', 'ǘ': 'ü', 'ǚ': 'ü', 'ǜ': 'ü',
+      'ā': 'a',
+      'á': 'a',
+      'ǎ': 'a',
+      'à': 'a',
+      'ē': 'e',
+      'é': 'e',
+      'ě': 'e',
+      'è': 'e',
+      'ī': 'i',
+      'í': 'i',
+      'ǐ': 'i',
+      'ì': 'i',
+      'ō': 'o',
+      'ó': 'o',
+      'ǒ': 'o',
+      'ò': 'o',
+      'ū': 'u',
+      'ú': 'u',
+      'ǔ': 'u',
+      'ù': 'u',
+      'ǖ': 'ü',
+      'ǘ': 'ü',
+      'ǚ': 'ü',
+      'ǜ': 'ü',
     };
     return input
         .split('')
@@ -232,7 +279,7 @@ class _PracticePageState extends State<PracticePage> {
                     style: const TextStyle(fontSize: 18),
                   ),
                   Text(
-                    '$totalWords total words',
+                    '$selectedWords/$totalWords selected',
                     style: const TextStyle(fontSize: 18),
                   ),
                 ],
@@ -259,14 +306,10 @@ class _PracticePageState extends State<PracticePage> {
                           return Card(
                             margin: const EdgeInsets.symmetric(vertical: 6),
                             child: ListTile(
-                              title: Text(
-                                word['english']!,
-                                style: const TextStyle(fontSize: 18),
-                              ),
-                              subtitle: Text(
-                                word['pinyin']!,
-                                style: const TextStyle(fontSize: 16),
-                              ),
+                              title: Text(word['english']!,
+                                  style: const TextStyle(fontSize: 18)),
+                              subtitle: Text(word['pinyin']!,
+                                  style: const TextStyle(fontSize: 16)),
                             ),
                           );
                         },
@@ -283,119 +326,127 @@ class _PracticePageState extends State<PracticePage> {
       );
     }
 
+    // Build suggestions for autocomplete
     final List<String> suggestions = (clueType == 'English')
-        ? vocab.map((w) => w['pinyin']!).toList()
-        : vocab.map((w) => w['english']!).toList();
+        ? vocab.map((w) => w['pinyin'].toString()).toList()
+        : vocab.map((w) => w['english'].toString()).toList();
+
+    final int streak = (clueType == 'English')
+        ? (currentWord?['correctStreakPinyin'] as int? ?? 0)
+        : (currentWord?['correctStreakEnglish'] as int? ?? 0);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Chinese Practice')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '$correctCount/$attemptedCount correct',
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    '$totalWords total words',
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              Text(
-                clueType.isNotEmpty
-                    ? 'What is the correct answer for this $clueType word?'
-                    : '',
-                style: const TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                clue,
-                style:
-                    const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              Autocomplete<String>(
-                optionsBuilder: (TextEditingValue value) {
-                  if (value.text.isEmpty) return const Iterable<String>.empty();
-                  final input = normalizePinyin(value.text);
-                  return suggestions.where(
-                      (option) => normalizePinyin(option).startsWith(input));
-                },
-                fieldViewBuilder:
-                    (context, textEditingController, focusNode, onSubmit) {
-                  _autoFocusNode = focusNode;
-
-                  if (controller.text.isEmpty &&
-                      textEditingController.text.isNotEmpty) {
-                    textEditingController.clear();
-                  }
-
-                  if (!_internalListeners.containsKey(textEditingController)) {
-                    VoidCallback listener = () {
-                      if (controller.text != textEditingController.text) {
-                        controller.value = textEditingController.value;
-                      }
-                    };
-                    textEditingController.addListener(listener);
-                    _internalListeners[textEditingController] = listener;
-                  }
-
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (!hasSubmitted) focusNode.requestFocus();
-                  });
-
-                  return TextField(
-                    controller: textEditingController,
-                    focusNode: focusNode,
-                    enabled: !hasSubmitted,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Type or select your answer',
+        child: SingleChildScrollView( // prevent overflow on phone
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '$correctCount/$attemptedCount correct',
+                      style: const TextStyle(fontSize: 18),
                     ),
-                    onSubmitted: (_) {
-                      if (!hasSubmitted) {
-                        checkAnswer(controller.text);
-                      } else {
-                        removeCurrentWord();
-                        nextQuestion();
-                      }
-                    },
-                  );
-                },
-                onSelected: (val) {
-                  controller.text = val;
-                },
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: hasSubmitted
-                    ? () {
-                        removeCurrentWord();
-                        nextQuestion();
-                      }
-                    : () => checkAnswer(controller.text),
-                child: Text(hasSubmitted ? 'Next' : 'Submit'),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                feedback,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: feedback.startsWith('✅') ? Colors.green : Colors.red,
+                    Text(
+                      '$selectedWords/$totalWords selected',
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+                const SizedBox(height: 30),
+                Text(
+                  clueType.isNotEmpty
+                      ? 'What is the correct answer for this $clueType word?'
+                      : '',
+                  style: const TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  clue,
+                  style: const TextStyle(
+                      fontSize: 28, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Word streak: $streak',
+                  style:
+                      const TextStyle(fontSize: 16, color: Colors.blueAccent),
+                ),
+                const SizedBox(height: 20),
+                Autocomplete<String>(
+                  optionsBuilder: (TextEditingValue value) {
+                    if (value.text.isEmpty)
+                      return const Iterable<String>.empty();
+                    final input = normalizePinyin(value.text);
+                    return suggestions.where(
+                        (option) => normalizePinyin(option).startsWith(input));
+                  },
+                  fieldViewBuilder:
+                      (context, textEditingController, focusNode, onSubmit) {
+                    _autoFocusNode = focusNode;
+
+                    // Sync internal controller with main controller
+                    if (!_internalListeners.containsKey(textEditingController)) {
+                      VoidCallback listener = () {
+                        if (controller.text != textEditingController.text) {
+                          controller.value = textEditingController.value;
+                        }
+                      };
+                      textEditingController.addListener(listener);
+                      _internalListeners[textEditingController] = listener;
+                    }
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (!hasSubmitted) focusNode.requestFocus();
+                    });
+
+                    return TextField(
+                      controller: textEditingController,
+                      focusNode: focusNode,
+                      enabled: !hasSubmitted,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Type or select your answer',
+                      ),
+                      onSubmitted: (_) {
+                        if (!hasSubmitted) {
+                          checkAnswer(controller.text);
+                        } else {
+                          nextQuestion();
+                        }
+                      },
+                    );
+                  },
+                  onSelected: (val) {
+                    controller.text = val;
+                  },
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: hasSubmitted
+                      ? nextQuestion
+                      : () => checkAnswer(controller.text),
+                  child: Text(hasSubmitted ? 'Next' : 'Submit'),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  feedback,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: feedback.startsWith('✅')
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         ),
       ),
