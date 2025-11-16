@@ -119,5 +119,7 @@
   {"pinyin": "lǎoshī", "english": "teacher", "hanzi": "老师"},
   {"pinyin": "xuéshēng", "english": "student", "hanzi": "学生"},
   {"pinyin": "ne", "english": "what about", "hanzi": "呢"},
-  {"pinyin": "yīshēng", "english": "doctor", "hanzi": "医生"}
+  {"pinyin": "yīshēng", "english": "doctor", "hanzi": "医生"},
+  {"pinyin": "diǎn", "english": "o'clock", "hanzi": "点"},
+  {"pinyin": "fēn", "english": "minute", "hanzi": "分"}
 ]
