@@ -121,5 +121,9 @@
   {"pinyin": "ne", "english": "what about", "hanzi": "呢"},
   {"pinyin": "yīshēng", "english": "doctor", "hanzi": "医生"},
   {"pinyin": "diǎn", "english": "o'clock", "hanzi": "点"},
-  {"pinyin": "fēn", "english": "minute", "hanzi": "分"}
+  {"pinyin": "fēn", "english": "minute", "hanzi": "分"},
+  {"pinyin": "qǐchuáng", "english": "get out of bed", "hanzi": "起床"},
+  {"pinyin": "shuìjiào", "english": "go to bed", "hanzi": "睡觉"},
+  {"pinyin": "chīfàn", "english": "eat a meal", "hanzi": "吃饭"},
+  {"pinyin": "xǐzǎo", "english": "take a shower", "hanzi": "洗澡"}
 ]
