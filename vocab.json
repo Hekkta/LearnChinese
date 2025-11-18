@@ -125,5 +125,10 @@
   {"pinyin": "qǐchuáng", "english": "get out of bed", "hanzi": "起床"},
   {"pinyin": "shuìjiào", "english": "go to bed", "hanzi": "睡觉"},
   {"pinyin": "chīfàn", "english": "eat a meal", "hanzi": "吃饭"},
-  {"pinyin": "xǐzǎo", "english": "take a shower", "hanzi": "洗澡"}
+  {"pinyin": "xǐzǎo", "english": "take a shower", "hanzi": "洗澡"},
+  {"pinyin": "zǎoshang", "english": "early morning", "hanzi": "早上"},
+  {"pinyin": "wǎnshàng", "english": "evening", "hanzi": "晚上"},
+  {"pinyin": "zhōngwǔ", "english": "midday", "hanzi": "中午"},
+  {"pinyin": "xiàwǔ", "english": "afternoon", "hanzi": "下午"},
+  {"pinyin": "shàngwǔ", "english": "late morning", "hanzi": "上午"}
 ]
