@@ -130,5 +130,9 @@
   {"pinyin": "wǎnshàng", "english": "evening", "hanzi": "晚上"},
   {"pinyin": "zhōngwǔ", "english": "midday", "hanzi": "中午"},
   {"pinyin": "xiàwǔ", "english": "afternoon", "hanzi": "下午"},
-  {"pinyin": "shàngwǔ", "english": "late morning", "hanzi": "上午"}
+  {"pinyin": "shàngwǔ", "english": "late morning", "hanzi": "上午"},
+  {"pinyin": "dà", "english": "big", "hanzi": "大"},
+  {"pinyin": "xiǎo", "english": "small", "hanzi": "小"},
+  {"pinyin": "lěng", "english": "cold", "hanzi": "冷"},
+  {"pinyin": "rè", "english": "hot", "hanzi": "热"}
 ]
