@@ -134,5 +134,8 @@
   {"pinyin": "dà", "english": "big", "hanzi": "大"},
   {"pinyin": "xiǎo", "english": "small", "hanzi": "小"},
   {"pinyin": "lěng", "english": "cold", "hanzi": "冷"},
-  {"pinyin": "rè", "english": "hot", "hanzi": "热"}
+  {"pinyin": "rè", "english": "hot", "hanzi": "热"},
+  {"pinyin": "fēicháng", "english": "extremely", "hanzi": "非常"},
+  {"pinyin": "gānjìng", "english": "clean", "hanzi": "干净"},
+  {"pinyin": "piàoliàng", "english": "beautiful", "hanzi": "漂亮"}
 ]
