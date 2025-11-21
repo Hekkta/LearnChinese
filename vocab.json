@@ -137,5 +137,12 @@
   {"pinyin": "rè", "english": "hot", "hanzi": "热"},
   {"pinyin": "fēicháng", "english": "extremely", "hanzi": "非常"},
   {"pinyin": "gānjìng", "english": "clean", "hanzi": "干净"},
-  {"pinyin": "piàoliàng", "english": "beautiful", "hanzi": "漂亮"}
+  {"pinyin": "piàoliàng", "english": "beautiful", "hanzi": "漂亮"},
+  {"pinyin": "hǎochī", "english": "tasty (food)", "hanzi": "'好吃"},
+  {"pinyin": "shǔtiáo", "english": "chips", "hanzi": "薯条"},
+  {"pinyin": "zhēn", "english": "really", "hanzi": "真"},
+  {"pinyin": "hǎohē", "english": "tasty (drink)", "hanzi": "好喝"},
+  {"pinyin": "hànbǎo", "english": "beautiful", "hanzi": "汉堡"},
+  {"pinyin": "piányí", "english": "cheap", "hanzi": "便宜"},
+  {"pinyin": "guì", "english": "expensive", "hanzi": "贵"}
 ]
