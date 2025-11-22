@@ -144,5 +144,9 @@
   {"pinyin": "hǎohē", "english": "tasty (drink)", "hanzi": "好喝"},
   {"pinyin": "hànbǎo", "english": "hamburger", "hanzi": "汉堡"},
   {"pinyin": "piányí", "english": "cheap", "hanzi": "便宜"},
-  {"pinyin": "guì", "english": "expensive", "hanzi": "贵"}
+  {"pinyin": "guì", "english": "expensive", "hanzi": "贵"},
+  {"pinyin": "níngméng", "english": "lemon", "hanzi": "柠檬"},
+  {"pinyin": "suān", "english": "sour", "hanzi": "酸"},
+  {"pinyin": "tián", "english": "sweet", "hanzi": "甜"},
+  {"pinyin": "tài - le", "english": "too", "hanzi": "太"}
 ]
