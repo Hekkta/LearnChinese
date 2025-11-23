@@ -148,5 +148,9 @@
   {"pinyin": "níngméng", "english": "lemon", "hanzi": "柠檬"},
   {"pinyin": "suān", "english": "sour", "hanzi": "酸"},
   {"pinyin": "tián", "english": "sweet", "hanzi": "甜"},
-  {"pinyin": "tài - le", "english": "too", "hanzi": "太"}
+  {"pinyin": "tài - le", "english": "too", "hanzi": "太"},
+  {"pinyin": "cài", "english": "dish/course", "hanzi": "菜"},
+  {"pinyin": "là", "english": "spicy", "hanzi": "辣"},
+  {"pinyin": "kǔ", "english": "bitter", "hanzi": "苦"},
+  {"pinyin": "xián", "english": "salty", "hanzi": "咸"}
 ]
