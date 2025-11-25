@@ -91,26 +91,49 @@ class _PracticePageState extends State<PracticePage> {
     // Fetch from GitHub
     final url = Uri.parse(
         'https://raw.githubusercontent.com/Hekkta/LearnChinese/main/vocab.json');
+
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
         final List<dynamic> remoteData = json.decode(response.body);
-        for (var word in remoteData) {
-          bool exists = localData.any((w) =>
-              w['pinyin'] == word['pinyin'] &&
-              w['english'] == word['english']);
-          if (!exists) {
-            // New word: set streaks to 0
-            localData.add({
-              'pinyin': word['pinyin'],
-              'english': word['english'],
-              'hanzi': word['hanzi'],
-              'correctStreakPinyin': 0,
-              'correctStreakEnglish': 0,
-            });
-          }
+
+        // --- NEW LOGIC: use composite key + remove deleted words ---
+
+        // Remote words mapped
+        Map<String, Map<String, dynamic>> remoteMap = {
+          for (var w in remoteData)
+            '${w['pinyin']}|${w['english']}': {
+              'pinyin': w['pinyin'],
+              'english': w['english'],
+              'hanzi': w['hanzi'],
+            }
+        };
+
+        // Local words mapped
+        Map<String, Map<String, dynamic>> localMap = {
+          for (var w in localData)
+            '${w['pinyin']}|${w['english']}': w
+        };
+
+        // Build merged list using remote words ONLY
+        List<Map<String, dynamic>> merged = [];
+
+        for (var key in remoteMap.keys) {
+          final remoteWord = remoteMap[key]!;
+          final localWord = localMap[key];
+
+          merged.add({
+            'pinyin': remoteWord['pinyin'],
+            'english': remoteWord['english'],
+            'hanzi': remoteWord['hanzi'],
+            'correctStreakPinyin': localWord?['correctStreakPinyin'] ?? 0,
+            'correctStreakEnglish': localWord?['correctStreakEnglish'] ?? 0,
+          });
         }
-        await saveJsonLocally(json.encode(localData));
+
+        // Save merged (remote-cleaned) vocab
+        await saveJsonLocally(json.encode(merged));
+        localData = merged;
       }
     } catch (e) {
       print('Could not fetch from GitHub: $e');
@@ -131,7 +154,6 @@ class _PracticePageState extends State<PracticePage> {
   void prepareSessionList() {
     final random = Random();
     sessionList = vocab.where((w) {
-      // Include mastered words at 10% probability
       int streakPinyin = w['correctStreakPinyin'] ?? 0;
       int streakEnglish = w['correctStreakEnglish'] ?? 0;
       if (streakPinyin >= 10 && streakEnglish >= 10) {
@@ -168,7 +190,6 @@ class _PracticePageState extends State<PracticePage> {
       feedback = '';
       hasSubmitted = false;
 
-      // Clear both main controller and synced internal controllers
       controller.clear();
       for (var entry in _internalListeners.entries) {
         entry.key.clear();
@@ -224,30 +245,12 @@ class _PracticePageState extends State<PracticePage> {
 
   String normalizePinyin(String input) {
     const Map<String, String> toneMap = {
-      'ā': 'a',
-      'á': 'a',
-      'ǎ': 'a',
-      'à': 'a',
-      'ē': 'e',
-      'é': 'e',
-      'ě': 'e',
-      'è': 'e',
-      'ī': 'i',
-      'í': 'i',
-      'ǐ': 'i',
-      'ì': 'i',
-      'ō': 'o',
-      'ó': 'o',
-      'ǒ': 'o',
-      'ò': 'o',
-      'ū': 'u',
-      'ú': 'u',
-      'ǔ': 'u',
-      'ù': 'u',
-      'ǖ': 'ü',
-      'ǘ': 'ü',
-      'ǚ': 'ü',
-      'ǜ': 'ü',
+      'ā': 'a', 'á': 'a', 'ǎ': 'a', 'à': 'a',
+      'ē': 'e', 'é': 'e', 'ě': 'e', 'è': 'e',
+      'ī': 'i', 'í': 'i', 'ǐ': 'i', 'ì': 'i',
+      'ō': 'o', 'ó': 'o', 'ǒ': 'o', 'ò': 'o',
+      'ū': 'u', 'ú': 'u', 'ǔ': 'u', 'ù': 'u',
+      'ǖ': 'ü', 'ǘ': 'ü', 'ǚ': 'ü', 'ǜ': 'ü',
     };
     return input
         .split('')
@@ -326,20 +329,21 @@ class _PracticePageState extends State<PracticePage> {
       );
     }
 
-    // Build suggestions for autocomplete
     final List<String> suggestions = (clueType == 'English')
         ? vocab.map((w) => w['pinyin'].toString()).toList()
         : vocab.map((w) => w['english'].toString()).toList();
 
-    final int streak = (clueType == 'English')
-        ? (currentWord?['correctStreakPinyin'] as int? ?? 0)
-        : (currentWord?['correctStreakEnglish'] as int? ?? 0);
+    // --- NEW: show BOTH streaks ---
+    final int pinyinStreak =
+        currentWord?['correctStreakPinyin'] as int? ?? 0;
+    final int englishStreak =
+        currentWord?['correctStreakEnglish'] as int? ?? 0;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Chinese Practice')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView( // prevent overflow on phone
+        child: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -373,11 +377,23 @@ class _PracticePageState extends State<PracticePage> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  'Word streak: $streak',
-                  style:
-                      const TextStyle(fontSize: 16, color: Colors.blueAccent),
+
+                // --- NEW: display both streaks ---
+                Column(
+                  children: [
+                    Text(
+                      'Pinyin streak: $pinyinStreak',
+                      style: const TextStyle(
+                          fontSize: 16, color: Colors.blueAccent),
+                    ),
+                    Text(
+                      'English streak: $englishStreak',
+                      style: const TextStyle(
+                          fontSize: 16, color: Colors.blueAccent),
+                    ),
+                  ],
                 ),
+
                 const SizedBox(height: 20),
                 Autocomplete<String>(
                   optionsBuilder: (TextEditingValue value) {
@@ -391,7 +407,6 @@ class _PracticePageState extends State<PracticePage> {
                       (context, textEditingController, focusNode, onSubmit) {
                     _autoFocusNode = focusNode;
 
-                    // Sync internal controller with main controller
                     if (!_internalListeners.containsKey(textEditingController)) {
                       VoidCallback listener = () {
                         if (controller.text != textEditingController.text) {

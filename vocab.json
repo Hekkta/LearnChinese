@@ -152,5 +152,9 @@
   {"pinyin": "cài", "english": "dish/course", "hanzi": "菜"},
   {"pinyin": "là", "english": "spicy", "hanzi": "辣"},
   {"pinyin": "kǔ", "english": "bitter", "hanzi": "苦"},
-  {"pinyin": "xián", "english": "salty", "hanzi": "咸"}
+  {"pinyin": "xián", "english": "salty", "hanzi": "咸"},
+  {"pinyin": "dōngxī", "english": "stuff", "hanzi": "东西"},
+  {"pinyin": "fàn", "english": "meal", "hanzi": "饭"},
+  {"pinyin": "yǒushíhòu", "english": "sometimes", "hanzi": "有时候"},
+  {"pinyin": "néng", "english": "able", "hanzi": "能"}
 ]
