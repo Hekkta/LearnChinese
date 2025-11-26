@@ -148,7 +148,7 @@
   {"pinyin": "níngméng", "english": "lemon", "hanzi": "柠檬"},
   {"pinyin": "suān", "english": "sour", "hanzi": "酸"},
   {"pinyin": "tián", "english": "sweet", "hanzi": "甜"},
-  {"pinyin": "tài - le", "english": "too", "hanzi": "太"},
+  {"pinyin": "tài - le", "english": "too (excessive)", "hanzi": "太"},
   {"pinyin": "cài", "english": "dish/course", "hanzi": "菜"},
   {"pinyin": "là", "english": "spicy", "hanzi": "辣"},
   {"pinyin": "kǔ", "english": "bitter", "hanzi": "苦"},
@@ -156,5 +156,10 @@
   {"pinyin": "dōngxī", "english": "stuff", "hanzi": "东西"},
   {"pinyin": "fàn", "english": "meal", "hanzi": "饭"},
   {"pinyin": "yǒushíhòu", "english": "sometimes", "hanzi": "有时候"},
-  {"pinyin": "néng", "english": "able", "hanzi": "能"}
+  {"pinyin": "néng", "english": "able", "hanzi": "能"},
+  {"pinyin": "bàba", "english": "Dad", "hanzi": "爸爸"},
+  {"pinyin": "māmā", "english": "Mum", "hanzi": "妈妈"},
+  {"pinyin": "tiānqì", "english": "weather", "hanzi": "天气"},
+  {"pinyin": "zhǎo", "english": "find/look for", "hanzi": "找"},
+  {"pinyin": "qiántiān", "english": "day before yesterday", "hanzi": "前天"}
 ]
