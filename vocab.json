@@ -161,5 +161,9 @@
   {"pinyin": "māmā", "english": "Mum", "hanzi": "妈妈"},
   {"pinyin": "tiānqì", "english": "weather", "hanzi": "天气"},
   {"pinyin": "zhǎo", "english": "find/look for", "hanzi": "找"},
-  {"pinyin": "qiántiān", "english": "day before yesterday", "hanzi": "前天"}
+  {"pinyin": "qiántiān", "english": "day before yesterday", "hanzi": "前天"},
+  {"pinyin": "nà'r", "english": "over there", "hanzi": "那儿 "},
+  {"pinyin": "wèn", "english": "ask", "hanzi": "问"},
+  {"pinyin": "kànjiàn", "english": "see", "hanzi": "看见"}
+
 ]
