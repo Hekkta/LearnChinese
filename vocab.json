@@ -164,6 +164,12 @@
   {"pinyin": "qiántiān", "english": "day before yesterday", "hanzi": "前天"},
   {"pinyin": "nà'r", "english": "over there", "hanzi": "那儿 "},
   {"pinyin": "wèn", "english": "ask", "hanzi": "问"},
-  {"pinyin": "kànjiàn", "english": "see", "hanzi": "看见"}
-
+  {"pinyin": "kànjiàn", "english": "see", "hanzi": "看见"},
+  {"pinyin": "gāoxìng", "english": "glad", "hanzi": "高兴"},
+  {"pinyin": "xiào", "english": "laugh", "hanzi": "笑"},
+  {"pinyin": "yīdiǎn'r", "english": "little bit", "hanzi": "一点儿"},
+  {"pinyin": "yīqǐ", "english": "together", "hanzi": "一起"},
+  {"pinyin": "zhīdào", "english": "know", "hanzi": "知道"},
+  {"pinyin": "míngzi", "english": "name", "hanzi": "名字"},
+  {"pinyin": "méiguānxì", "english": "never mind", "hanzi": "没关系"}
 ]
