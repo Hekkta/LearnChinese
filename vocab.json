@@ -171,5 +171,8 @@
   {"pinyin": "yīqǐ", "english": "together", "hanzi": "一起"},
   {"pinyin": "zhīdào", "english": "know", "hanzi": "知道"},
   {"pinyin": "míngzi", "english": "name", "hanzi": "名字"},
-  {"pinyin": "méiguānxì", "english": "never mind", "hanzi": "没关系"}
+  {"pinyin": "méiguānxì", "english": "never mind", "hanzi": "没关系"},
+  {"pinyin": "dìfāng", "english": "place", "hanzi": "地方"},
+  {"pinyin": "kěyǐ", "english": "can (able/possible)", "hanzi": "可以"},
+  {"pinyin": "wán", "english": "play", "hanzi": "玩"}
 ]
