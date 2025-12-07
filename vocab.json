@@ -180,5 +180,7 @@
   {"pinyin": "jiù", "english": "exactly (agreement)", "hanzi": "就"},
   {"pinyin": "tiān", "english": "day", "hanzi": "天"},
   {"pinyin": "bùjiàn", "english": "missing", "hanzi": "不见"},
-  {"pinyin": "duì", "english": "correct", "hanzi": "对"}
+  {"pinyin": "duì", "english": "correct", "hanzi": "对"},
+  {"pinyin": "shíhou", "english": "moment", "hanzi": "时候"},
+  {"pinyin": "lái", "english": "arrive", "hanzi": "来"}
 ]
