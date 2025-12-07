@@ -177,5 +177,8 @@
   {"pinyin": "wán", "english": "play", "hanzi": "玩"},
   {"pinyin": "jiālǐ", "english": "at home", "hanzi": "家里"},
   {"pinyin": "duō", "english": "many", "hanzi": "多"},
-  {"pinyin": "jiù", "english": "exactly (agreement)", "hanzi": "就"}
+  {"pinyin": "jiù", "english": "exactly (agreement)", "hanzi": "就"},
+  {"pinyin": "tiān", "english": "day", "hanzi": "天"},
+  {"pinyin": "bùjiàn", "english": "missing", "hanzi": "不见"},
+  {"pinyin": "duì", "english": "correct", "hanzi": "对"}
 ]
