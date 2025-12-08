@@ -182,5 +182,8 @@
   {"pinyin": "bùjiàn", "english": "missing", "hanzi": "不见"},
   {"pinyin": "duì", "english": "correct", "hanzi": "对"},
   {"pinyin": "shíhou", "english": "moment", "hanzi": "时候"},
-  {"pinyin": "lái", "english": "arrive", "hanzi": "来"}
+  {"pinyin": "lái", "english": "arrive", "hanzi": "来"},
+  {"pinyin": "dǎ", "english": "hit", "hanzi": "打"},
+  {"pinyin": "zǒu", "english": "walk", "hanzi": "走"},
+  {"pinyin": "zěnme le", "english": "what happened?", "hanzi": "怎么了"}
 ]
