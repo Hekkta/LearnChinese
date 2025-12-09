@@ -43,6 +43,8 @@ class _PracticePageState extends State<PracticePage> {
   bool hasSubmitted = false;
   bool isFinished = false;
 
+  bool submitLocked = false;            // <<< NEW
+
   final TextEditingController controller = TextEditingController();
   final Map<TextEditingController, VoidCallback> _internalListeners = {};
   FocusNode? _autoFocusNode;
@@ -97,8 +99,6 @@ class _PracticePageState extends State<PracticePage> {
       if (response.statusCode == 200) {
         final List<dynamic> remoteData = json.decode(response.body);
 
-        // --- NEW LOGIC: use composite key + remove deleted words ---
-
         // Remote words mapped
         Map<String, Map<String, dynamic>> remoteMap = {
           for (var w in remoteData)
@@ -115,7 +115,7 @@ class _PracticePageState extends State<PracticePage> {
             '${w['pinyin']}|${w['english']}': w
         };
 
-        // Build merged list using remote words ONLY
+        // Build merged list
         List<Map<String, dynamic>> merged = [];
 
         for (var key in remoteMap.keys) {
@@ -131,7 +131,6 @@ class _PracticePageState extends State<PracticePage> {
           });
         }
 
-        // Save merged (remote-cleaned) vocab
         await saveJsonLocally(json.encode(merged));
         localData = merged;
       }
@@ -189,6 +188,7 @@ class _PracticePageState extends State<PracticePage> {
       currentWord = word;
       feedback = '';
       hasSubmitted = false;
+      submitLocked = true;                       // <<< NEW
 
       controller.clear();
       for (var entry in _internalListeners.entries) {
@@ -204,6 +204,11 @@ class _PracticePageState extends State<PracticePage> {
         clue = word['pinyin'];
         correctAnswer = word['english'];
       }
+    });
+
+    // Unlock submit after 1 seconds
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) setState(() => submitLocked = false);
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -318,10 +323,13 @@ class _PracticePageState extends State<PracticePage> {
                         },
                       ),
               ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: loadWords,
-                child: const Text('Restart Practice'),
+              const SizedBox(height: 30),        // <<< LIFTED HIGHER
+              Padding(
+                padding: const EdgeInsets.only(bottom: 40), // <<< lifts button up
+                child: ElevatedButton(
+                  onPressed: loadWords,
+                  child: const Text('Restart Practice'),
+                ),
               ),
             ],
           ),
@@ -333,7 +341,7 @@ class _PracticePageState extends State<PracticePage> {
         ? vocab.map((w) => w['pinyin'].toString()).toList()
         : vocab.map((w) => w['english'].toString()).toList();
 
-    // --- NEW: show BOTH streaks ---
+    // streaks
     final int pinyinStreak =
         currentWord?['correctStreakPinyin'] as int? ?? 0;
     final int englishStreak =
@@ -378,7 +386,6 @@ class _PracticePageState extends State<PracticePage> {
                 ),
                 const SizedBox(height: 10),
 
-                // --- NEW: display both streaks ---
                 Column(
                   children: [
                     Text(
@@ -397,17 +404,26 @@ class _PracticePageState extends State<PracticePage> {
                 const SizedBox(height: 20),
                 Autocomplete<String>(
                   optionsBuilder: (TextEditingValue value) {
-                    if (value.text.isEmpty)
-                      return const Iterable<String>.empty();
+                    if (value.text.isEmpty) return const Iterable<String>.empty();
+
                     final input = normalizePinyin(value.text);
-                    return suggestions.where(
-                        (option) => normalizePinyin(option).startsWith(input));
+
+                    // Filter, then sort by length
+                    final filtered = suggestions
+                        .where((option) => normalizePinyin(option).startsWith(input))
+                        .toList();
+
+                    filtered.sort((a, b) => a.length.compareTo(b.length));
+
+                    return filtered;
                   },
+
                   fieldViewBuilder:
                       (context, textEditingController, focusNode, onSubmit) {
                     _autoFocusNode = focusNode;
 
-                    if (!_internalListeners.containsKey(textEditingController)) {
+                    if (!_internalListeners
+                        .containsKey(textEditingController)) {
                       VoidCallback listener = () {
                         if (controller.text != textEditingController.text) {
                           controller.value = textEditingController.value;
@@ -430,9 +446,9 @@ class _PracticePageState extends State<PracticePage> {
                         hintText: 'Type or select your answer',
                       ),
                       onSubmitted: (_) {
-                        if (!hasSubmitted) {
+                        if (!hasSubmitted && !submitLocked) {
                           checkAnswer(controller.text);
-                        } else {
+                        } else if (hasSubmitted) {
                           nextQuestion();
                         }
                       },
@@ -442,13 +458,21 @@ class _PracticePageState extends State<PracticePage> {
                     controller.text = val;
                   },
                 ),
+
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: hasSubmitted
                       ? nextQuestion
-                      : () => checkAnswer(controller.text),
-                  child: Text(hasSubmitted ? 'Next' : 'Submit'),
+                      : (submitLocked
+                          ? null
+                          : () => checkAnswer(controller.text)),
+                  child: Text(
+                    hasSubmitted
+                        ? 'Next'
+                        : (submitLocked ? '...' : 'Submit'),
+                  ),
                 ),
+
                 const SizedBox(height: 20),
                 Text(
                   feedback,

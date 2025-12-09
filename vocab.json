@@ -185,5 +185,7 @@
   {"pinyin": "lái", "english": "arrive", "hanzi": "来"},
   {"pinyin": "dǎ", "english": "hit", "hanzi": "打"},
   {"pinyin": "zǒu", "english": "walk", "hanzi": "走"},
-  {"pinyin": "zěnme le", "english": "what happened?", "hanzi": "怎么了"}
+  {"pinyin": "zěnme le", "english": "what happened?", "hanzi": "怎么了"},
+  {"pinyin": "wěibā", "english": "tail", "hanzi": "尾巴"},
+  {"pinyin": "shuō huà", "english": "speak (verb)", "hanzi": "说话"}
 ]
