@@ -187,5 +187,8 @@
   {"pinyin": "zǒu", "english": "walk", "hanzi": "走"},
   {"pinyin": "zěnme le", "english": "what happened?", "hanzi": "怎么了"},
   {"pinyin": "wěibā", "english": "tail", "hanzi": "尾巴"},
-  {"pinyin": "shuō huà", "english": "speak (verb)", "hanzi": "说话"}
+  {"pinyin": "shuō huà", "english": "speak (verb)", "hanzi": "说话"},
+  {"pinyin": "zuò", "english": "do/make", "hanzi": "做"},
+  {"pinyin": "xià", "english": "next", "hanzi": "下"},
+  {"pinyin": "yào", "english": "will/want/need", "hanzi": "要"}
 ]
