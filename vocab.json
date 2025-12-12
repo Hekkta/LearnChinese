@@ -193,5 +193,8 @@
   {"pinyin": "yào", "english": "will/want/need", "hanzi": "要"},
   {"pinyin": "zuìxiǎo", "english": "youngest", "hanzi": "最小"},
   {"pinyin": "dú", "english": "read", "hanzi": "读"},
-  {"pinyin": "shū", "english": "book", "hanzi": "书"}
+  {"pinyin": "shū", "english": "book", "hanzi": "书"},
+  {"pinyin": "gōngzuò", "english": "work", "hanzi": "工作"},
+  {"pinyin": "fúwùyuán", "english": "waiter", "hanzi": "服务员"},
+  {"pinyin": "tiān tiān", "english": "daily", "hanzi": "天天"}
 ]
