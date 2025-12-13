@@ -196,5 +196,8 @@
   {"pinyin": "shū", "english": "book", "hanzi": "书"},
   {"pinyin": "gōngzuò", "english": "work", "hanzi": "工作"},
   {"pinyin": "fúwùyuán", "english": "waiter", "hanzi": "服务员"},
-  {"pinyin": "tiān tiān", "english": "daily", "hanzi": "天天"}
+  {"pinyin": "tiān tiān", "english": "daily", "hanzi": "天天"},
+  {"pinyin": "mìmǎ", "english": "password", "hanzi": "密码"},
+  {"pinyin": "zài", "english": "again", "hanzi": "再"},
+  {"pinyin": "cì", "english": "time (one more time)", "hanzi": "次"}
 ]
