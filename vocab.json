@@ -78,7 +78,7 @@
   {"pinyin": "suì", "english": "years old", "hanzi": "岁"},
   {"pinyin": "kàn", "english": "look/watch", "hanzi": "看"},
   {"pinyin": "diànyǐng", "english": "film/movie", "hanzi": "电影"},
-  {"pinyin": "zài", "english": "in", "hanzi": "在"},
+  {"pinyin": "zài (in)", "english": "in", "hanzi": "在"},
   {"pinyin": "hěn", "english": "very/really", "hanzi": "很"},
   {"pinyin": "nián", "english": "years", "hanzi": "年"},
   {"pinyin": "xiànzài", "english": "currently", "hanzi": "现在"},
@@ -198,6 +198,9 @@
   {"pinyin": "fúwùyuán", "english": "waiter", "hanzi": "服务员"},
   {"pinyin": "tiān tiān", "english": "daily", "hanzi": "天天"},
   {"pinyin": "mìmǎ", "english": "password", "hanzi": "密码"},
-  {"pinyin": "zài", "english": "again", "hanzi": "再"},
-  {"pinyin": "cì", "english": "time (one more time)", "hanzi": "次"}
+  {"pinyin": "zài (again)", "english": "again", "hanzi": "再"},
+  {"pinyin": "cì", "english": "time (one more time)", "hanzi": "次"},
+  {"pinyin": "bù hǎo yì si", "english": "excuse me", "hanzi": "不好意思"},
+  {"pinyin": "āiyā", "english": "interjection of wonder", "hanzi": "哎呀"},
+  {"pinyin": "gěi", "english": "give", "hanzi": "给"}
 ]
