@@ -202,5 +202,8 @@
   {"pinyin": "cì", "english": "time (one more time)", "hanzi": "次"},
   {"pinyin": "bù hǎo yì si", "english": "excuse me", "hanzi": "不好意思"},
   {"pinyin": "āiyā", "english": "interjection of wonder", "hanzi": "哎呀"},
-  {"pinyin": "gěi", "english": "give", "hanzi": "给"}
+  {"pinyin": "gěi", "english": "give", "hanzi": "给"},
+  {"pinyin": "ba", "english": "okay? (final particle)", "hanzi": "吧"},
+  {"pinyin": "fēnzhōng", "english": "minute (full formal)", "hanzi": "分钟"},
+  {"pinyin": "huì", "english": "can do (action)", "hanzi": "会"}
 ]
