@@ -208,5 +208,8 @@
   {"pinyin": "huì", "english": "can do (action)", "hanzi": "会"},
   {"pinyin": "dǎ", "english": "call", "hanzi": "打"},
   {"pinyin": "diànhuà", "english": "phone", "hanzi": "电话"},
-  {"pinyin": "rènshi", "english": "know (someone personally)", "hanzi": "认识"}
+  {"pinyin": "rènshi", "english": "know (someone personally)", "hanzi": "认识"},
+  {"pinyin": "xuǎn", "english": "choose", "hanzi": "选"},
+  {"pinyin": "dòngwù", "english": "animal", "hanzi": "动物"},
+  {"pinyin": "zuòwéi", "english": "act as/ conduct oneself", "hanzi": "作为"}
 ]
