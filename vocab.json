@@ -183,7 +183,7 @@
   {"pinyin": "duì", "english": "correct", "hanzi": "对"},
   {"pinyin": "shíhou", "english": "moment", "hanzi": "时候"},
   {"pinyin": "lái", "english": "arrive", "hanzi": "来"},
-  {"pinyin": "dǎ", "english": "hit", "hanzi": "打"},
+  {"pinyin": "dǎ (hit)", "english": "hit", "hanzi": "打"},
   {"pinyin": "zǒu", "english": "walk", "hanzi": "走"},
   {"pinyin": "zěnme le", "english": "what happened?", "hanzi": "怎么了"},
   {"pinyin": "wěibā", "english": "tail", "hanzi": "尾巴"},
@@ -206,7 +206,7 @@
   {"pinyin": "ba", "english": "okay? (final particle)", "hanzi": "吧"},
   {"pinyin": "fēnzhōng", "english": "minute (full formal)", "hanzi": "分钟"},
   {"pinyin": "huì", "english": "can do (action)", "hanzi": "会"},
-  {"pinyin": "dǎ", "english": "call", "hanzi": "打"},
+  {"pinyin": "dǎ (call)", "english": "call", "hanzi": "打"},
   {"pinyin": "diànhuà", "english": "phone", "hanzi": "电话"},
   {"pinyin": "rènshi", "english": "know (someone personally)", "hanzi": "认识"},
   {"pinyin": "xuǎn", "english": "choose", "hanzi": "选"},
@@ -214,5 +214,8 @@
   {"pinyin": "zuòwéi", "english": "act as/ conduct oneself", "hanzi": "作为"},
   {"pinyin": "lǚxíng", "english": "travel", "hanzi": "旅行"},
   {"pinyin": "shìjiè", "english": "the world", "hanzi": "世界"},
+  {"pinyin": "gǔshíhou", "english": "in ancient times", "hanzi": "古时候"},
+  {"pinyin": "tiānshàng", "english": "in the sky", "hanzi": " 天上"},
+  {"pinyin": "tūrán", "english": "suddenly", "hanzi": "突然"},
   {"pinyin": "wèn", "english": "ask", "hanzi": "问"}
 ]
