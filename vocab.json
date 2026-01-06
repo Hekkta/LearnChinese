@@ -220,5 +220,8 @@
   {"pinyin": "wèn", "english": "ask", "hanzi": "问"},
   {"pinyin": "chūxiànle", "english": "appeared", "hanzi": "出现了"},
   {"pinyin": "dàdì", "english": "earth", "hanzi": "大地"},
-  {"pinyin": "biàndé", "english": "become", "hanzi": "变得"}
+  {"pinyin": "biàndé", "english": "become", "hanzi": "变得"},
+  {"pinyin": "gānzào", "english": "dry", "hanzi": "干燥"},
+  {"pinyin": "shēnghuó", "english": "life", "hanzi": "生活"},
+  {"pinyin": "kùnnán", "english": "difficuly", "hanzi": "困难"}
 ]
