@@ -226,5 +226,8 @@
   {"pinyin": "kùn nán", "english": "difficuly", "hanzi": "困难"},
   {"pinyin": "zhí dào", "english": "until", "hanzi": "直到"},
   {"pinyin": "yīng xióng", "english": "hero", "hanzi": "英雄"},
-  {"pinyin": "pá", "english": "climb", "hanzi": "爬"}
+  {"pinyin": "pá", "english": "climb", "hanzi": "爬"},
+  {"pinyin": "dào", "english": "reach/arrive", "hanzi": "到"},
+  {"pinyin": "shān dǐng", "english": "mountain top", "hanzi": "山顶"},
+  {"pinyin": "yòng", "english": "use", "hanzi": "用"}
 ]
