@@ -229,5 +229,11 @@
   {"pinyin": "pá", "english": "climb", "hanzi": "爬"},
   {"pinyin": "dào", "english": "reach/arrive", "hanzi": "到"},
   {"pinyin": "shān dǐng", "english": "mountain top", "hanzi": "山顶"},
-  {"pinyin": "yòng", "english": "use", "hanzi": "用"}
+  {"pinyin": "yòng", "english": "use", "hanzi": "用"},
+  {"pinyin": "shén qì", "english": "divine weapon (god weapon)", "hanzi": "神器"},
+  {"pinyin": "gōng", "english": "bow", "hanzi": "弓"},
+  {"pinyin": "jiàn", "english": "arrow", "hanzi": "箭"},
+  {"pinyin": "xià le", "english": "came down/downwards", "hanzi": "下了"},
+  {"pinyin": "dé jiù le", "english": "saved/rescued", "hanzi": "获救了"},
+  {"pinyin": "gǎn xiè", "english": "to thank", "hanzi": "感谢"}
 ]
