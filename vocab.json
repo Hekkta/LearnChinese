@@ -235,5 +235,8 @@
   {"pinyin": "jiàn", "english": "arrow", "hanzi": "箭"},
   {"pinyin": "xià le", "english": "came down/downwards", "hanzi": "下了"},
   {"pinyin": "dé jiù le", "english": "saved/rescued", "hanzi": "获救了"},
-  {"pinyin": "gǎn xiè", "english": "to thank", "hanzi": "感谢"}
+  {"pinyin": "gǎn xiè", "english": "to thank", "hanzi": "感谢"},
+  {"pinyin": "tiān dì", "english": "God of Heaven/Celestial Emperor", "hanzi": "天帝"},
+  {"pinyin": "wèi le", "english": "in order to", "hanzi": "为了"},
+  {"pinyin": "sòng", "english": "bestow/present", "hanzi": "送"}
 ]
