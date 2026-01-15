@@ -223,7 +223,7 @@
   {"pinyin": "biàn dé", "english": "become", "hanzi": "变得"},
   {"pinyin": "gān zào", "english": "dry", "hanzi": "干燥"},
   {"pinyin": "shēng huó", "english": "life", "hanzi": "生活"},
-  {"pinyin": "kùn nán", "english": "difficuly", "hanzi": "困难"},
+  {"pinyin": "kùn nán", "english": "difficult", "hanzi": "困难"},
   {"pinyin": "zhí dào", "english": "until", "hanzi": "直到"},
   {"pinyin": "yīng xióng", "english": "hero", "hanzi": "英雄"},
   {"pinyin": "pá", "english": "climb", "hanzi": "爬"},
@@ -238,5 +238,7 @@
   {"pinyin": "gǎn xiè", "english": "to thank", "hanzi": "感谢"},
   {"pinyin": "tiān dì", "english": "God of Heaven/Celestial Emperor", "hanzi": "天帝"},
   {"pinyin": "wèi le", "english": "in order to", "hanzi": "为了"},
-  {"pinyin": "sòng", "english": "bestow/present", "hanzi": "送"}
+  {"pinyin": "sòng", "english": "bestow/present", "hanzi": "送"},
+  {"pinyin": "xiān dān", "english": "elixer of immortality", "hanzi": "仙丹"},
+  {"pinyin": "kē", "english": "small round (measure word)", "hanzi": "颗"}
 ]
