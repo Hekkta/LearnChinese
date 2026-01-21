@@ -177,7 +177,7 @@
   {"pinyin": "wán", "english": "play", "hanzi": "玩"},
   {"pinyin": "jiā lǐ", "english": "at home", "hanzi": "家里"},
   {"pinyin": "duō", "english": "many", "hanzi": "多"},
-  {"pinyin": "jiù", "english": "exactly (agreement)", "hanzi": "就"},
+  {"pinyin": "jiù", "english": "exactly (agreement)/implies", "hanzi": "就"},
   {"pinyin": "tiān", "english": "day", "hanzi": "天"},
   {"pinyin": "bù jiàn", "english": "missing", "hanzi": "不见"},
   {"pinyin": "duì", "english": "correct", "hanzi": "对"},
@@ -220,7 +220,7 @@
   {"pinyin": "wèn", "english": "ask", "hanzi": "问"},
   {"pinyin": "chū xiàn le", "english": "appeared", "hanzi": "出现了"},
   {"pinyin": "dà dì", "english": "earth", "hanzi": "大地"},
-  {"pinyin": "biàn dé", "english": "become", "hanzi": "变得"},
+  {"pinyin": "biàn dé", "english": "become - noun", "hanzi": "变得"},
   {"pinyin": "gān zào", "english": "dry", "hanzi": "干燥"},
   {"pinyin": "shēng huó", "english": "life", "hanzi": "生活"},
   {"pinyin": "kùn nán", "english": "difficult", "hanzi": "困难"},
@@ -240,5 +240,8 @@
   {"pinyin": "wèi le", "english": "in order to", "hanzi": "为了"},
   {"pinyin": "sòng", "english": "bestow/present", "hanzi": "送"},
   {"pinyin": "xiān dān", "english": "elixer of immortality", "hanzi": "仙丹"},
-  {"pinyin": "kē", "english": "small round (measure word)", "hanzi": "颗"}
+  {"pinyin": "kē", "english": "small round (measure word)", "hanzi": "颗"},
+  {"pinyin": "xiān rén", "english": "immortal being", "hanzi": "仙人"},
+  {"pinyin": "biàn chéng", "english": "become - adjective", "hanzi": "变成"},
+  {"pinyin": "kě shì", "english": "however/but", "hanzi": "可是"}
 ]
